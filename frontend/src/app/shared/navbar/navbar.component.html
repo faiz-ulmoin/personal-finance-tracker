@@ -1,0 +1,12 @@
+<nav class="navbar">
+  <div class="brand">💰 FinanceTracker</div>
+  <div class="links">
+    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/transactions" routerLinkActive="active">Transactions</a>
+    <a routerLink="/budgets" routerLinkActive="active">Budgets</a>
+  </div>
+  <div class="user">
+    <span>{{ auth.getUsername() }}</span>
+    <button (click)="logout()">Logout</button>
+  </div>
+</nav>

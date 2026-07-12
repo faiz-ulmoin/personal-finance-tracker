@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+<div class="page">
+  <div class="header-row">
+    <h2>Transactions</h2>
+    <div class="export-buttons">
+      <button (click)="exportCsv()">Export CSV</button>
+      <button (click)="exportPdf()">Export PDF</button>
+    </div>
+  </div>
+
+  <form class="tx-form" (ngSubmit)="onSubmit()">
+    <select [(ngModel)]="form.type" name="type">
+      <option value="EXPENSE">Expense</option>
+      <option value="INCOME">Income</option>
+    </select>
+    <select [(ngModel)]="form.category" name="category" required>
+      <option value="" disabled selected>Category</option>
+      <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+    </select>
+    <input type="number" [(ngModel)]="form.amount" name="amount" placeholder="Amount" required min="0.01" step="0.01" />
+    <input type="date" [(ngModel)]="form.date" name="date" required />
+    <input type="text" [(ngModel)]="form.note" name="note" placeholder="Note (optional)" />
+    <button type="submit">{{ editingId ? 'Update' : 'Add' }}</button>
+    <button type="button" class="cancel" *ngIf="editingId" (click)="cancelEdit()">Cancel</button>
+  </form>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Type</th><th>Category</th><th>Note</th><th>Amount</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tx of transactions">
+          <td>{{ tx.date }}</td>
+          <td><span class="badge" [class.income]="tx.type === 'INCOME'" [class.expense]="tx.type === 'EXPENSE'">{{ tx.type }}</span></td>
+          <td>{{ tx.category }}</td>
+          <td>{{ tx.note }}</td>
+          <td>₹{{ tx.amount | number:'1.2-2' }}</td>
+          <td class="actions">
+            <button (click)="edit(tx)">✏️</button>
+            <button (click)="delete(tx.id!)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

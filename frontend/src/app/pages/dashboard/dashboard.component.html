@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<div class="dashboard">
+  <div class="summary-cards">
+    <div class="card income">
+      <span>Total Income</span>
+      <h3>₹{{ totalIncome | number:'1.2-2' }}</h3>
+    </div>
+    <div class="card expense">
+      <span>Total Expense</span>
+      <h3>₹{{ totalExpense | number:'1.2-2' }}</h3>
+    </div>
+    <div class="card balance">
+      <span>Balance</span>
+      <h3>₹{{ balance | number:'1.2-2' }}</h3>
+    </div>
+  </div>
+
+  <div class="charts">
+    <div class="chart-box">
+      <h4>Expenses by Category</h4>
+      <canvas #pieCanvas></canvas>
+    </div>
+    <div class="chart-box">
+      <h4>Monthly Income vs Expense</h4>
+      <canvas #barCanvas></canvas>
+    </div>
+  </div>
+
+  <p class="empty" *ngIf="transactions.length === 0">No transactions yet — add some to see your charts.</p>
+</div>

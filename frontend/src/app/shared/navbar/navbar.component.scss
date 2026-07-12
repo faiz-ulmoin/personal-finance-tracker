@@ -1,0 +1,10 @@
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: .8rem 1.5rem; background: #1a2b4c; color: #fff; flex-wrap: wrap; gap: .5rem; }
+.brand { font-weight: 700; font-size: 1.1rem; }
+.links { display: flex; gap: 1rem; flex-wrap: wrap; }
+.links a { color: #cbd5e1; text-decoration: none; font-size: .9rem; padding: .3rem .5rem; border-radius: 6px; }
+.links a.active, .links a:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.user { display: flex; align-items: center; gap: .8rem; font-size: .9rem; }
+.user button { background: #ef4444; color: #fff; border: none; padding: .4rem .8rem; border-radius: 6px; cursor: pointer; }
+@media (max-width: 600px) {
+  .navbar { flex-direction: column; align-items: flex-start; }
+}

@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<div class="page">
+  <h2>Monthly Budgets — {{ currentMonth }}</h2>
+
+  <form class="budget-form" (ngSubmit)="onSubmit()">
+    <select [(ngModel)]="form.category" name="category" required>
+      <option value="" disabled selected>Category</option>
+      <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+    </select>
+    <input type="number" [(ngModel)]="form.monthlyLimit" name="monthlyLimit" placeholder="Monthly Limit ₹" required min="1" />
+    <button type="submit">Set Budget</button>
+  </form>
+
+  <div class="budget-list">
+    <div class="budget-card" *ngFor="let b of budgets" [class.over]="isOverBudget(b)">
+      <div class="budget-head">
+        <strong>{{ b.category }}</strong>
+        <button (click)="delete(b.id!)">✕</button>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="percentUsed(b)"></div>
+      </div>
+      <p>₹{{ b.spent || 0 | number:'1.2-2' }} of ₹{{ b.monthlyLimit | number:'1.2-2' }}</p>
+      <p class="alert" *ngIf="isOverBudget(b)">⚠️ Over budget!</p>
+    </div>
+  </div>
+</div>
