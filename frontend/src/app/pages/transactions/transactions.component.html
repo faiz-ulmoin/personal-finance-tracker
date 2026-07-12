@@ -9,7 +9,7 @@
   </div>
 
   <form class="tx-form" (ngSubmit)="onSubmit()">
-    <select [(ngModel)]="form.type" name="type">
+  <select [(ngModel)]="form.type" name="type" (ngModelChange)="onTypeChange()">
       <option value="EXPENSE">Expense</option>
       <option value="INCOME">Income</option>
     </select>

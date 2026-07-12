@@ -1,6 +1,12 @@
 <app-navbar></app-navbar>
 <div class="page">
-  <h2>Monthly Budgets — {{ currentMonth }}</h2>
+  <h1>Budgets</h1>
+  <div class="month-nav">
+    <button (click)="changeMonth(-1)" aria-label="Previous month">←</button>
+    <span class="month">{{ monthLabel }}</span>
+    <button (click)="changeMonth(1)" aria-label="Next month">→</button>
+    <button class="today" *ngIf="!isCurrentMonth" (click)="goToToday()">Today</button>
+  </div>
 
   <form class="budget-form" (ngSubmit)="onSubmit()">
     <select [(ngModel)]="form.category" name="category" required>

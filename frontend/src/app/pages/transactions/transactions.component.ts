@@ -14,10 +14,19 @@ import { Transaction } from '../../core/models/transaction.model';
 })
 export class TransactionsComponent implements OnInit {
   transactions: Transaction[] = [];
-  categories = ['Food', 'Transport', 'Rent', 'Shopping', 'Bills', 'Salary', 'Other'];
+  incomeCategories = ['Salary', 'Freelance', 'Investment', 'Gift', 'Other Income'];
+  expenseCategories = ['Food', 'Transport', 'Rent', 'Shopping', 'Bills', 'Entertainment', 'Healthcare', 'Other Expense'];
   editingId: number | null = null;
 
   form: Transaction = this.emptyForm();
+
+  get categories(): string[] {
+    return this.form.type === 'INCOME' ? this.incomeCategories : this.expenseCategories;
+  }
+
+  onTypeChange(): void {
+    this.form.category = '';
+  }
 
   constructor(private txService: TransactionService) {}
 

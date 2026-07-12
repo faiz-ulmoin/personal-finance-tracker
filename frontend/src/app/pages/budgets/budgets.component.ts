@@ -13,10 +13,23 @@ import { Budget } from '../../core/models/budget.model';
   styleUrl: './budgets.component.scss'
 })
 export class BudgetsComponent implements OnInit {
-  categories = ['Food', 'Transport', 'Rent', 'Shopping', 'Bills', 'Other'];
+  categories = ['Food', 'Transport', 'Rent', 'Shopping', 'Bills', 'Entertainment', 'Healthcare', 'Other Expense'];
   budgets: Budget[] = [];
-  currentMonth = new Date().toISOString().substring(0, 7);
+  viewDate = new Date();
   form: Budget = this.emptyForm();
+
+  get currentMonth(): string {
+    return this.viewDate.toISOString().substring(0, 7);
+  }
+
+  get monthLabel(): string {
+    return this.viewDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  }
+
+  get isCurrentMonth(): boolean {
+    const now = new Date();
+    return this.viewDate.getFullYear() === now.getFullYear() && this.viewDate.getMonth() === now.getMonth();
+  }
 
   constructor(private budgetService: BudgetService) {}
 
@@ -26,6 +39,18 @@ export class BudgetsComponent implements OnInit {
 
   load(): void {
     this.budgetService.getAll(this.currentMonth).subscribe(b => this.budgets = b);
+  }
+
+  changeMonth(offset: number): void {
+    this.viewDate = new Date(this.viewDate.getFullYear(), this.viewDate.getMonth() + offset, 1);
+    this.form = this.emptyForm();
+    this.load();
+  }
+
+  goToToday(): void {
+    this.viewDate = new Date();
+    this.form = this.emptyForm();
+    this.load();
   }
 
   emptyForm(): Budget {
